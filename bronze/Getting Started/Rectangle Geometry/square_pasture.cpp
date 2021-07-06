@@ -1,6 +1,10 @@
 #include<bits/stdc++.h>
 
 using namespace std;
+
+typedef long long ll;
+const int mod = 1e9+7;
+
 struct point{
   int x;
   int y;
@@ -34,16 +38,23 @@ struct rectangle{
 };
 
 int main(){
-  freopen("billboard.in", "r", stdin);
-  freopen("billboard.out", "w", stdout);
   ios_base::sync_with_stdio(0);
   cin.tie(0);
-  vector<rectangle> recs(3);
 
-  for(auto &rec: recs)
-    cin >> rec.p1.x >> rec.p1.y >> rec.p2.x >> rec.p2.y;
+  freopen("square.in", "r", stdin);
+  freopen("square.out", "w", stdout);
 
-  cout << recs[0].area() + recs[1].area() - recs[2].intersection(recs[0]).area() - 
-    recs[2].intersection(recs[1]).area() << '\n';
+  vector<rectangle> recs(2);
+
+  for(auto &r : recs) cin >> r.p1.x >> r.p1.y >> r.p2.x >> r.p2.y;
+
+  rectangle join;
+  join.p1.x = min(recs[0].p1.x, recs[1].p1.x);
+  join.p1.y = min(recs[0].p1.y, recs[1].p1.y);
+  join.p2.x = max(recs[0].p2.x, recs[1].p2.x);
+  join.p2.y = max(recs[0].p2.y, recs[1].p2.y);
+  
+  int a = max(join.p2.x - join.p1.x, join.p2.y - join.p1.y);
+  cout << a*a << endl;
   return 0;
 }

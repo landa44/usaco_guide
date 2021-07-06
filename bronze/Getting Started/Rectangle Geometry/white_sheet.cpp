@@ -1,18 +1,27 @@
 #include<bits/stdc++.h>
 
 using namespace std;
+
+typedef long long ll;
+const int mod = 1e9+7;
+
 struct point{
-  int x;
-  int y;
+  int x, y;
+
+  point(){}
+
+  point(int& a, int& b){
+    x=a;
+    y=b;
+  }
 };
 
 struct rectangle{
-  point p1;
-  point p2;
+  point p1, p2;
 
-  int area(){
+  ll area(){
     if( p2.x- p1.x < 0 or p2.y - p1.y < 0) return 0;
-    return (p2.x- p1.x)*(p2.y - p1.y);
+    return 1LL*(p2.x- p1.x)*(p2.y - p1.y);
   }
 
   bool contain( point p){
@@ -31,19 +40,20 @@ struct rectangle{
     inter.p2.y = min(p2.y, r.p2.y);
     return inter;
   }
-};
+}; 
 
 int main(){
-  freopen("billboard.in", "r", stdin);
-  freopen("billboard.out", "w", stdout);
   ios_base::sync_with_stdio(0);
   cin.tie(0);
-  vector<rectangle> recs(3);
 
-  for(auto &rec: recs)
-    cin >> rec.p1.x >> rec.p1.y >> rec.p2.x >> rec.p2.y;
+  vector<rectangle> rect(3);
+  for(auto &r: rect) cin >> r.p1.x >> r.p1.y >> r.p2.x >> r.p2.y;
 
-  cout << recs[0].area() + recs[1].area() - recs[2].intersection(recs[0]).area() - 
-    recs[2].intersection(recs[1]).area() << '\n';
+  rectangle inter1 = rect[0].intersection(rect[1]);
+  rectangle inter2 = rect[0].intersection(rect[2]);
+
+  if(rect[0].area() - (inter1.area() + inter2.area() - inter1.intersection(inter2).area()))
+    cout << "YES\n";
+  else cout << "NO\n";
   return 0;
 }

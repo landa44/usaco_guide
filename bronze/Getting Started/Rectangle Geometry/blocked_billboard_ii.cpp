@@ -1,6 +1,10 @@
 #include<bits/stdc++.h>
 
 using namespace std;
+
+typedef long long ll;
+const int mod = 1e9+7;
+
 struct point{
   int x;
   int y;
@@ -34,16 +38,23 @@ struct rectangle{
 };
 
 int main(){
-  freopen("billboard.in", "r", stdin);
-  freopen("billboard.out", "w", stdout);
   ios_base::sync_with_stdio(0);
   cin.tie(0);
-  vector<rectangle> recs(3);
 
-  for(auto &rec: recs)
-    cin >> rec.p1.x >> rec.p1.y >> rec.p2.x >> rec.p2.y;
+  freopen("billboard.in", "r", stdin);
+  freopen("billboard.out", "w", stdout);
 
-  cout << recs[0].area() + recs[1].area() - recs[2].intersection(recs[0]).area() - 
-    recs[2].intersection(recs[1]).area() << '\n';
+  vector<rectangle> recs(2);
+
+  for(auto &r : recs) cin >> r.p1.x >> r.p1.y >> r.p2.x >> r.p2.y;
+
+  rectangle inter = recs[0].intersection(recs[1]);
+
+  if( (inter.p2.x - inter.p1.x == recs[0].p2.x - recs[0].p1.x and (inter.p1.y == recs[0].p1.y or inter.p2.y == recs[0].p2.y)) or
+      (inter.p2.y - inter.p1.y == recs[0].p2.y - recs[0].p1.y and (inter.p1.x == recs[0].p1.x or inter.p2.x == recs[0].p2.x)) )
+    cout << recs[0].area() - inter.area() << endl;
+  else 
+    cout << recs[0].area() << endl;
+
   return 0;
 }
