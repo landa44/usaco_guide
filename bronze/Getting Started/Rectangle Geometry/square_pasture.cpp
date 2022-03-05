@@ -41,8 +41,8 @@ int main(){
   ios_base::sync_with_stdio(0);
   cin.tie(0);
 
-  freopen("square.in", "r", stdin);
-  freopen("square.out", "w", stdout);
+  // freopen("square.in", "r", stdin);
+  // freopen("square.out", "w", stdout);
 
   vector<rectangle> recs(2);
 
